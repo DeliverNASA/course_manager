@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>成绩录入</title>
+</head>
+<body>
+<h1>{{ course[1] }}</h1>
+<form action="" method="post">
+    <table border="1">
+        <tr>
+            <td>学号&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>姓名&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>成绩&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        {% for student in students %}
+            <tr>
+                <td>{{ student[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>{{ student[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td><input type="number" name="{{ student[0] }}" value="{{ student[2] }}">&nbsp;&nbsp;&nbsp;</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <p>
+        <button type="submit" name="confirm" value="输入">确认录入</button>
+        <button type="button" onclick="window.location.href='../'">返回课程</button>
+    </p>
+</form>
+</body>
+</html>

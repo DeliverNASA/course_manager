@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程资源</title>
+    <style type="text/css">
+        .limit  {
+            width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<h1>{{ course }}</h1>
+<h2>资源上传</h2>
+<form action="add_to_course/" method="post" enctype="multipart/form-data">
+    <!--<p><input type="hidden" name="account" value="{{ account }}"></p>-->
+    <p><input type="file" name="res_file"></p>
+    <p>
+        <button name="confirm" type="submit" value="上传资源">上传</button>
+    </p>
+</form>
+<h2>资源一览</h2>
+<table border="1">
+    <tr>
+        <td>资源编号&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>资源名称&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>下载次数&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>上传者&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>上传时间&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>操作&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    {% for resource in resources %}
+        <tr>
+            <td>{{ resource[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <!--<td><a href="/jump/no={{ resource[0] }}&link='{{ resource[2] }}'">{{ resource[2] }}</a>&nbsp;&nbsp;&nbsp;</td>-->
+            <!--<td><div class="limit"><a href='download&res_no={{ resource[0] }}/'>{{ resource[2] }}</a></div></td>-->
+            <!--<td><a href='download&res_no={{ resource[0] }}/'>{{ resource[2] }}</a>&nbsp;&nbsp;&nbsp;</td>-->
+            <td>{{ resource[2] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[3] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[4] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <!--<td><a href="download&res_no={{ resource[0] }}/">下载</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>-->
+            <td><button onclick="window.location.href='download&res_no={{ resource[0] }}/'">下载</button>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+    {% endfor %}
+</table>
+<p><button onclick="window.location.href='..'">返回</button></p>
+</body>
+</html>

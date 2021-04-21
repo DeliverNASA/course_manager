@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>私信</title>
+    <style type="text/css">
+        .limit  {
+            width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<script>
+    function reply(account) {
+        // var account = document.getElementById("reply").value
+        document.getElementById("receive_account").value = account;
+        alert("对方账号已添加，请补全内容");
+    }
+</script>
+<body>
+<h1>私信联系</h1>
+<div>
+    <h2>发信息</h2>
+    <form action="" method="post">
+        <p>收件人账号: <input id="receive_account" type="text" name="receive_account"></p>
+        <p>
+            <input type="text" name="content" placeholder="内容">
+            <button type="submit">发送</button>
+        </p>
+    </form>
+</div>
+<div>
+    <h2>收件箱</h2>
+    <table border="1" class="modify">
+        <tr>
+            <td>发送时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>发送账号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>内容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+        {% for message in messages %}
+            <tr>
+                <td>{{ message[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td>{{ message[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+                <td class="limit"><div class="limit">{{ message[2] }}</div></td>
+                <td>
+                    <button onclick="window.location.href='details&mes_number={{ message[3] }}/'">详情</button>&nbsp;&nbsp;
+                    <button onclick="window.location.href='confirm&mes_number={{ message[3] }}/'">{{ message[4] }}</button>&nbsp;&nbsp;
+                    <button onclick="reply('{{ message[1] }}')">回复</button>&nbsp;&nbsp;
+                </td>
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+<p><button onclick="window.location.href='..'">返回</button></p>
+</body>
+</html>

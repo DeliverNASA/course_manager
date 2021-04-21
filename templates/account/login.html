@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录页面</title>
+</head>
+<script>
+    function tip() {
+        var state = document.getElementById("state").value;
+        if (state == "no_login") {
+            alert("访问失败，请确认用户已登录!");
+        } else if (state == "no_power") {
+            alert("访问失败，请确认您的管理员权限!");
+        } else if (state == "fail_login") {
+            alert("登录失败，请检查您的账号密码或用户类型!")
+        } else if (state == "reg_ok") {
+            alert("注册成功，请登录!")
+        }
+    }
+</script>
+<body onload="tip()">
+<form action="/login&normal" method="post">
+    <input id="state" type="hidden" value="{{ state }}">
+    <p>账号<input type="text" name="account"></p>
+    <p>密码<input type="password" name="password"></p>
+    <p>类型
+        <input type="radio" name="type" value="student" />学生
+        <input type="radio" name="type" value="teacher" />教师
+        <input type="radio" name="type" value="admin" />管理员
+    </p>
+    <p>
+        <button type="submit">登入</button>&emsp;
+        <button type="button" onclick="window.location.href='/regist'">注册</button>
+    </p>
+</form>
+
+</body>
+</html>
+

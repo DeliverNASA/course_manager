@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>课程信息</title>
+</head>
+<body>
+<h1>我的课程</h1>
+<table border="1">
+    <tr>
+        <td>编号&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>名称&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>学分&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>成绩&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>资源&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    {% for course in courses %}
+        <tr>
+            <td>{{ course[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ course[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ course[2] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ course[3] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <a href="resource&cour_no={{ course[0] }}/">查看</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<p><button onclick="window.location.href='..'">返回</button></p>
+</body>
+</html>

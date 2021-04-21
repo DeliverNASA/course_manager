@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>注册页面</title>
+</head>
+<script>
+    function display() {
+        var radios = document.getElementsByName("usertype");
+        var value = 0;
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].checked == true) {
+                value = radios[i].value;
+            }
+        }
+
+        switch (value){
+            case 'teacher':
+                document.getElementById("student").style.display="none";
+                document.getElementById("teacher").style.display="block";
+                break;
+            case 'student':
+                document.getElementById("student").style.display="block";
+                document.getElementById("teacher").style.display="none";
+                break;
+            default:
+                document.getElementById("student").style.display="none";
+                document.getElementById("teacher").style.display="none";
+                break;
+        }
+    }
+</script>
+<body>
+<form action="/regist" method="post">
+    <div>
+        <p>账号<input type="text" name="account"></p>
+        <p>密码<input type="password" name="password"></p>
+        <p>用户名<input type="text" name="username"></p>
+        <p>类型
+            <input type="radio" name="usertype" value="teacher" onclick="display()" />老师
+            <input type="radio" name="usertype" value="student" onclick="display()" />学生
+        </p>
+    </div>
+
+    <div id="teacher" style="display:none">
+        <p>姓名<input type="text" name="teac_name" ></p>
+        <p>教工号<input type="text" name="teac_number"></p>
+        <p>学院编号<input type="text" name="col_number"></p>
+        <p>邮箱<input type="text" name="teac_mail"></p>
+        <p>工作地址<input type="text" name="teac_office"></p>
+    </div>
+
+    <div id="student" style="display:none">
+        <p>姓名<input type="text" name="stu_name"></p>
+        <p>学号<input type="text" name="stu_number"></p>
+        <p>专业编号<input type="text" name="major_number"></p>
+        <p>联系方式<input type="text" name="stu_phone"></p>
+        <p>出生日期<input type="date" name="stu_birth"></p>
+    </div>
+
+    <p><button type="submit">注册</button></p>
+</form>
+
+</body>
+</html>

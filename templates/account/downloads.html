@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>下载记录</title>
+</head>
+<body>
+<h1>下载记录</h1>
+<table border="1">
+    <tr>
+        <td>资源编号&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>资源名称&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>下载时间&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    {% for download in downloads %}
+        <tr>
+            <td>{{ download[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ download[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ download[2] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        </tr>
+    {% endfor %}
+</table>
+<p><button onclick="window.location.href='..'">返回</button></p>
+</body>
+</html>

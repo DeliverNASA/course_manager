@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>资源管理</title>
+    <style type="text/css">
+        .limit  {
+            width: 300px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+<h1>资源管理</h1>
+<table border="1">
+    <tr>
+        <td>资源编号&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>资源名称&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>下载量&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>上传账户&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>上传时间&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>操作&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    {% for resource in resources %}
+        <tr>
+            <td>{{ resource[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[2] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[3] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ resource[4] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <a href="delete_resource/{{ resource[0] }}">下架</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<p><button onclick="window.location.href='..'">返回</button></p>
+</body>
+</html>

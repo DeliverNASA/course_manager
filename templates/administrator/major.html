@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>专业管理</title>
+</head>
+<body>
+<h1>{{ col_name }}</h1>
+<form action="" method="post">
+    <p>专业编号<input type="text" name="major_number" ></p>
+    <p>专业名称<input type="text" name="major_name"></p>
+    <p>
+        <button name="confirm" type="submit" value="添加">添加</button>
+        <button name="confirm" type="submit" value="更新">更新</button>
+    </p>
+</form>
+
+<table border="1">
+    <tr>
+        <td>专业编号&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>专业名称&nbsp;&nbsp;&nbsp;&nbsp;</td>
+        <td>操作&nbsp;&nbsp;&nbsp;&nbsp;</td>
+    </tr>
+    {% for major in majors %}
+        <tr>
+            <td>{{ major[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>{{ major[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+            <td>
+                <a href="delete_major/{{ major[0] }}/">删除</a>
+            </td>
+        </tr>
+    {% endfor %}
+</table>
+<p><button onclick="window.location.href='..'">返回</button></p>
+</body>
+</html>
