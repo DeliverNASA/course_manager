@@ -6,7 +6,7 @@ teacher = Blueprint('teacher', __name__)
 
 
 # 教师主页
-@teacher.route('/index_teacher/account=<account>&user_no=<teac_number>/')
+@teacher.route('/index_teacher/account=<account>&user_no=<teac_number>/index/')
 def index_teacher(account, teac_number):
     if not is_user(account):
         return error_info()
@@ -75,7 +75,7 @@ def course_teacher(account, teac_number):
     return render_template('/teacher/course_teacher.html', courses=courses, account=account, teac_number=teac_number)
 
 
-@teacher.route('/index_teacher/account=<account>&user_no=<teac_number>/course/cour_no=<cour_number>/', methods=['GET', 'POST'])
+@teacher.route('/index_teacher/account=<account>&user_no=<teac_number>/grade&cour_no=<cour_number>/', methods=['GET', 'POST'])
 def course_grade(account, teac_number, cour_number):
     if not is_user(account):
         return error_info()
@@ -93,6 +93,7 @@ def course_grade(account, teac_number, cour_number):
         cursor.execute(sql2)
         course_info = cursor.fetchone()
         return render_template('/course/course_grade.html',
+                               account=account,
                                students=students,
                                course=course_info,
                                teac_number=teac_number)
@@ -106,7 +107,7 @@ def course_grade(account, teac_number, cour_number):
                    'where stu_number = "%s"' % (int(stu_grade), student[0])
             cursor.execute(sql2)
         conn.commit()
-        return redirect('/index_teacher/account=%s&user_no=%s/course/cour_no=%s/' %
+        return redirect('/index_teacher/account=%s&user_no=%s/grade&cour_no=%s/' %
                         (account, teac_number, cour_number))
 
 

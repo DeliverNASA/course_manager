@@ -64,17 +64,17 @@ def login(state):
                     conn.commit()
                     account_type = request.form['type']
                     if account_type == 'admin' and user[1] == 'admin':
-                        return redirect('/index_admin/account=%s/' %
+                        return redirect('/index_admin/account=%s/index/' %
                                         (request.form['account']))
                     elif account_type == "student" and user[1] == 'student':
                         cursor.execute('select stu_number from student where account = "%s"' % account)
                         stu_number = cursor.fetchone()[0]
-                        return redirect('/index_student/account=%s&user_no=%s/' %
+                        return redirect('/index_student/account=%s&user_no=%s/index/' %
                                         (request.form['account'], stu_number))
                     elif account_type == "teacher" and user[1] == 'teacher':
                         cursor.execute('select teac_number from teacher where account = "%s"' % account)
                         teac_number = cursor.fetchone()[0]
-                        return redirect('/index_teacher/account=%s&user_no=%s/' %
+                        return redirect('/index_teacher/account=%s&user_no=%s/index/' %
                                         (request.form['account'], teac_number))
                     else:
                         return error_login()

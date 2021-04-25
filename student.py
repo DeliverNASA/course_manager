@@ -6,7 +6,7 @@ student = Blueprint('student', __name__)
 
 
 # 学生主页
-@student.route('/index_student/account=<account>&user_no=<stu_number>/')
+@student.route('/index_student/account=<account>&user_no=<stu_number>/index/')
 def index_student(account, stu_number):
     if not is_user(account):
         return error_info()
@@ -25,6 +25,7 @@ def info_student(account, stu_number):
         student = cursor.fetchone()
         print(student)
         return render_template('/student/info_student.html', student=student, account=account)
+
     else:
         submit = request.form.get('change')
         if submit == '电话':
@@ -66,3 +67,4 @@ def course_student(account, stu_number):
                    'where student_course.stu_number = "%s"' % stu_number)
     courses = cursor.fetchall()
     return render_template('/student/course_student.html', courses=courses, account=account)
+

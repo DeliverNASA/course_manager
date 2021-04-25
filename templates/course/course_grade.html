@@ -1,30 +1,92 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
     <title>成绩录入</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/navbar-fixed/">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/navbar-top-fixed.css" rel="stylesheet">
+    <link href="/static/css/container.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/head.js"></script>
+
+
+    <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        background-image: url("/static/photo/final.png");
+        background-size: 100%, 100%;
+        background-attachment: fixed;
+        margin: 0 auto;
+        height: 100%;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+
+    </style>
 </head>
-<body>
-<h1>{{ course[1] }}</h1>
-<form action="" method="post">
-    <table border="1">
-        <tr>
-            <td>学号&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>姓名&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>成绩&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        {% for student in students %}
-            <tr>
-                <td>{{ student[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ student[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td><input type="number" name="{{ student[0] }}" value="{{ student[2] }}">&nbsp;&nbsp;&nbsp;</td>
-            </tr>
-        {% endfor %}
-    </table>
-    <p>
-        <button type="submit" name="confirm" value="输入">确认录入</button>
-        <button type="button" onclick="window.location.href='../'">返回课程</button>
-    </p>
-</form>
+<body class="bg-light">
+<div class="container">
+    <div class="col-md-12">
+        <div class="py-3">
+            <h2 class="font-weight-bold">{{ course[1] }}</h2>
+        </div>
+        <form action="" method="post">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>学号</th>
+                    <th>姓名</th>
+                    <th>成绩</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for student in students %}
+                <tr>
+                    <td>{{ student[0] }}</td>
+                    <td>{{ student[1] }}</td>
+                    <td>
+                        <input type="number" name="{{ student[0] }}" value="{{ student[2] }}">
+                    </td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="py-3">
+                <button class="btn btn-info" type="submit" name="confirm" value="输入">确认录入</button>&emsp;&emsp;
+                <button type="button" class="btn btn-info" onclick="window.location.href='../course/'">返回课程</button>
+            </div>
+        </form>
+    </div>
+</div>
 </body>
+<script type="text/javascript" src="/static/js/nav_course_active.js"></script>
+<script type="text/javascript">
+    var obj = document.getElementById('exit');
+    obj.onclick=function(){
+      window.location.href="/logout/account={{ account }}";
+    }
+</script>
 </html>

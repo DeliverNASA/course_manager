@@ -1,59 +1,143 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
     <title>私信</title>
-    <style type="text/css">
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/navbar-fixed/">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/navbar-top-fixed.css" rel="stylesheet">
+    <link href="/static/css/container.css" rel="stylesheet">
+    <script type="text/javascript" src="/static/js/head.js"></script>
+
+
+    <style>
+      html {
+        height: 100%;
+      }
+
+      body {
+        background-image: url("/static/photo/final.png");
+        background-size: 100%, 100%;
+        background-attachment: fixed;
+        margin: 0 auto;
+        height: 100%;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+         -webkit-user-select: none;
+         -moz-user-select: none;
+         -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
         .limit  {
             width: 300px;
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }
+
+
+
+
+
     </style>
-</head>
-<script>
+    <script>
     function reply(account) {
         // var account = document.getElementById("reply").value
         document.getElementById("receive_account").value = account;
         alert("对方账号已添加，请补全内容");
     }
-</script>
-<body>
-<h1>私信联系</h1>
-<div>
-    <h2>发信息</h2>
-    <form action="" method="post">
-        <p>收件人账号: <input id="receive_account" type="text" name="receive_account"></p>
-        <p>
-            <input type="text" name="content" placeholder="内容">
-            <button type="submit">发送</button>
-        </p>
-    </form>
-</div>
-<div>
-    <h2>收件箱</h2>
-    <table border="1" class="modify">
-        <tr>
-            <td>发送时间&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>发送账号&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>内容&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-            <td>操作&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-        </tr>
-        {% for message in messages %}
+
+
+
+
+    </script>
+</head>
+<body class="bg-light">
+<div class="container">
+    <div class="col-md-12">
+        <div class="py-3">
+            <h2 class="font-weight-bold">发信息</h2>
+        </div>
+        <form action="" method="post" enctype="multipart/form-data">
+            <!--<p><input type="hidden" name="account" value="{{ account }}"></p>-->
+            <div class="row mb-3">
+                <div class="col-8">
+                    <label for="receive_account">收件人账号：</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="receive_account" name="receive_account" required>
+                </div>
+                <div class="col-8">
+                    <label for="content">内容：</label>
+                </div>
+                <div class="col-8">
+                    <input type="text" class="form-control" id="content" name="content" required>
+                </div>
+                <div class="col-4">
+                    <button type="submit" class="btn btn-info">发送</button>
+                </div>
+            </div>
+        </form>
+
+
+        <div class="py-3">
+            <h2 class="font-weight-bold">收件箱</h2>
+        </div>
+        <table class="table table-striped">
+            <thead>
             <tr>
-                <td>{{ message[0] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td>{{ message[1] }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-                <td class="limit"><div class="limit">{{ message[2] }}</div></td>
+                <th>发送时间</th>
+                <th>发送账号</th>
+                <th>内容</th>
+                <th>操作</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for message in messages %}
+            <tr>
+                <td>{{ message[0] }}</td>
+                <td>{{ message[1] }}</td>
+                <td class="limit">
+                    <div class="limit">{{ message[2] }}</div>
+                </td>
                 <td>
-                    <button onclick="window.location.href='details&mes_number={{ message[3] }}/'">详情</button>&nbsp;&nbsp;
-                    <button onclick="window.location.href='confirm&mes_number={{ message[3] }}/'">{{ message[4] }}</button>&nbsp;&nbsp;
-                    <button onclick="reply('{{ message[1] }}')">回复</button>&nbsp;&nbsp;
+                    <button onclick="window.location.href='../details&mes_number={{ message[3] }}/'" class="btn btn-sm btn-info">
+                        详情
+                    </button>&nbsp;&nbsp;
+                    <button onclick="window.location.href='confirm&mes_number={{ message[3] }}/'" class="btn btn-sm btn-info">
+                        {{ message[4] }}
+                    </button>&nbsp;&nbsp;
+                    <button onclick="reply('{{ message[1] }}')" class="btn btn-sm btn-info">
+                        回复
+                    </button>
                 </td>
             </tr>
-        {% endfor %}
-    </table>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
-<p><button onclick="window.location.href='..'">返回</button></p>
 </body>
+<script type="text/javascript" src="/static/js/nav_message_active.js"></script>
+<script type="text/javascript">
+    var obj = document.getElementById('exit');
+    obj.onclick=function(){
+      window.location.href="/logout/account={{ account }}";
+    }
+</script>
 </html>

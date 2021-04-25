@@ -39,10 +39,10 @@ def account_contact(usertype, account, user_no):
         print(sql)
         cursor.execute(sql)
         conn.commit()
-        return redirect('/index_teacher/account=%s&user_no=%s/contact/' % (account, user_no))
+        return redirect('/%s/account=%s&user_no=%s/contact/' % (usertype, account, user_no))
 
 
-@message.route('/<usertype>/account=<account>&user_no=<user_no>/contact/details&mes_number=<mes_number>/')
+@message.route('/<usertype>/account=<account>&user_no=<user_no>/details&mes_number=<mes_number>/')
 def message_details(usertype, account, user_no, mes_number):
     sql = 'select receive_account ' \
           'from message ' \
@@ -50,8 +50,9 @@ def message_details(usertype, account, user_no, mes_number):
     print(sql)
     cursor.execute(sql)
     account = cursor.fetchone()
-    if not account or not is_user(account):
+    if not account or not is_user(account[0]):
         return error_info()
+    account = account[0]
     # 点击详情默认已读
     sql = 'update message ' \
           'set mes_isRead = "已读" ' \
@@ -64,7 +65,7 @@ def message_details(usertype, account, user_no, mes_number):
     print(sql)
     cursor.execute(sql)
     details = cursor.fetchone()
-    return render_template('/account/contact_details.html', details=details)
+    return render_template('/account/contact_details.html', account=account, details=details)
 
 
 @message.route('/<usertype>/account=<account>&user_no=<user_no>/contact/confirm&mes_number=<mes_number>/')

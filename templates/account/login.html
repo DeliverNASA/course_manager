@@ -3,6 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <title>登录页面</title>
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/sign-in/">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body{
+        background-image: url("/static/photo/index.jpeg");
+        background-size: 100%, 100%;
+        background-attachment: fixed;
+        margin: 0 auto;
+      }
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+
+    </style>
+    <link href="../../static/css/signin.css" rel="stylesheet">
 </head>
 <script>
     function tip() {
@@ -17,23 +45,34 @@
             alert("注册成功，请登录!")
         }
     }
-</script>
-<body onload="tip()">
-<form action="/login&normal" method="post">
-    <input id="state" type="hidden" value="{{ state }}">
-    <p>账号<input type="text" name="account"></p>
-    <p>密码<input type="password" name="password"></p>
-    <p>类型
-        <input type="radio" name="type" value="student" />学生
-        <input type="radio" name="type" value="teacher" />教师
-        <input type="radio" name="type" value="admin" />管理员
-    </p>
-    <p>
-        <button type="submit">登入</button>&emsp;
-        <button type="button" onclick="window.location.href='/regist'">注册</button>
-    </p>
-</form>
 
+
+
+</script>
+<body onload="tip()" class="text-center">
+<form action="/login&normal" method="post" class="form-signin">
+    <img class="mb-4" src="/static/photo/hit.png" alt="" width="90" height="90">
+    <h1 class="h1 .font-weight-bold text-dark">校园教务系统</h1>
+    <p></p>
+    <input id="state" type="hidden" value="{{ state }}">
+    <label for="inputAccount" class="sr-only">账号</label>
+    <input type="text" name="account" id="inputAccount" class="form-control" placeholder="账号" required autofocus>
+    <label for="inputPassword" class="sr-only">密码</label>
+    <input type="password" name="password" id="inputPassword" class="form-control" placeholder="密码" required>
+    <div class="mb-2">
+        <label class="radio-inline">
+            <input type="radio" name="type" value="student"/> 学生&emsp;
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="teacher"/> 教师&emsp;
+        </label>
+        <label class="radio-inline">
+            <input type="radio" name="type" value="admin"/> 管理员
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">登录</button>
+    <button type="button" class="btn btn-success btn-block" onclick="window.location.href='/regist'">注册</button>
+</form>
 </body>
 </html>
 

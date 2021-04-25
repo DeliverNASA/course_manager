@@ -1,8 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>注册页面</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="Mark Otto, Jacob Thornton, and Bootstrap contributors">
+    <meta name="generator" content="Hugo 0.80.0">
+    <title>注册界面</title>
+
+    <link rel="canonical" href="https://getbootstrap.com/docs/4.6/examples/checkout/">
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/css/container.css" rel="stylesheet">
+
+    <style>
+      html {
+        height:100%;
+      }
+
+      body{
+        background-image: url("/static/photo/index.jpeg");
+        background-size: 100%, 100%;
+        background-attachment: fixed;
+        margin: 0 auto;
+        height: 100%;
+      }
+
+      .bd-placeholder-img {
+        font-size: 1.125rem;
+        text-anchor: middle;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
+
+      @media (min-width: 768px) {
+        .bd-placeholder-img-lg {
+          font-size: 3.5rem;
+        }
+      }
+
+
+
+
+    </style>
 </head>
 <script>
     function display() {
@@ -29,37 +70,106 @@
                 break;
         }
     }
+
+
+
+
+
 </script>
-<body>
-<form action="/regist" method="post">
-    <div>
-        <p>账号<input type="text" name="account"></p>
-        <p>密码<input type="password" name="password"></p>
-        <p>用户名<input type="text" name="username"></p>
-        <p>类型
-            <input type="radio" name="usertype" value="teacher" onclick="display()" />老师
-            <input type="radio" name="usertype" value="student" onclick="display()" />学生
-        </p>
+<body class="bg-light">
+<div class="container">
+    <div class="py-5 text-center">
+        <h2>注册表单</h2>
     </div>
 
-    <div id="teacher" style="display:none">
-        <p>姓名<input type="text" name="teac_name" ></p>
-        <p>教工号<input type="text" name="teac_number"></p>
-        <p>学院编号<input type="text" name="col_number"></p>
-        <p>邮箱<input type="text" name="teac_mail"></p>
-        <p>工作地址<input type="text" name="teac_office"></p>
+    <div class="row">
+        <div class="col-md-12 order-md-1">
+            <form action="/regist" method="post" class="needs-validation" novalidate>
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="account">账号</label>
+                        <input type="text" class="form-control" name="account" id="account" required>
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="password">密码</label>
+                        <input type="password" class="form-control" name="password" id="password" required>
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <label for="username">用户名</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text">@</span>
+                        </div>
+                        <input type="text" class="form-control" name="username" id="username" placeholder="Username"
+                               required>
+                    </div>
+                </div>
+
+                <div class="mb-0">
+                    <label>用户类型<span> (请仔细确认您的用户类型哦)</span></label>
+                </div>
+                <div class="mb-1">
+                    <label class="radio-inline">
+                        <input type="radio" class="radio-inline" name="usertype" value="teacher"
+                               onclick="display()" checked="checked"> 老师&emsp;&emsp;
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" class="radio-inline" name="usertype" value="student"
+                               onclick="display()"> 学生
+                    </label>
+                </div>
+
+                <div id="teacher">
+                    <div class="mb-3">
+                        <label for="teac_name">姓名</label>
+                        <input type="text" class="form-control" name="teac_name" id="teac_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="teac_number">教工号</label>
+                        <input type="text" class="form-control" name="teac_number" id="teac_number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="col_number">学院编号</label>
+                        <input type="text" class="form-control" name="col_number" id="col_number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="teac_mail">邮箱</label>
+                        <input type="text" class="form-control" name="teac_mail" id="teac_mail" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="teac_office">工作地址</label>
+                        <input type="text" class="form-control" name="teac_office" id="teac_office" required>
+                    </div>
+                </div>
+
+                <div id="student" style="display:None">
+                    <div class="mb-3">
+                        <label for="stu_name">姓名</label>
+                        <input type="text" class="form-control" name="stu_name" id="stu_name" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stu_number">学号</label>
+                        <input type="text" class="form-control" name="stu_number" id="stu_number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="major_number">专业编号</label>
+                        <input type="text" class="form-control" name="major_number" id="major_number" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stu_phone">联系方式</label>
+                        <input type="text" class="form-control" name="stu_phone" id="stu_phone" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="stu_birth">出生日期</label>
+                        <input type="date" class="form-control" name="stu_birth" id="stu_birth" required>
+                    </div>
+                </div>
+                <button class="btn btn-primary btn-lg btn-block mt-5" type="submit">注册</button>
+            </form>
+        </div>
     </div>
-
-    <div id="student" style="display:none">
-        <p>姓名<input type="text" name="stu_name"></p>
-        <p>学号<input type="text" name="stu_number"></p>
-        <p>专业编号<input type="text" name="major_number"></p>
-        <p>联系方式<input type="text" name="stu_phone"></p>
-        <p>出生日期<input type="date" name="stu_birth"></p>
-    </div>
-
-    <p><button type="submit">注册</button></p>
-</form>
-
+</div>
 </body>
 </html>

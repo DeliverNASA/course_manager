@@ -1,5 +1,5 @@
 from db_connect import cursor, conn
-from flask import render_template, request, redirect, send_from_directory
+from flask import render_template, send_from_directory
 import datetime, os
 from flask import Blueprint
 from account import is_user, error_info
@@ -18,10 +18,10 @@ def account_downloads(usertype, account, user_no):
     print(sql)
     cursor.execute(sql)
     downloads = cursor.fetchall()
-    return render_template('/account/downloads.html', downloads=downloads)
+    return render_template('/account/downloads.html', downloads=downloads, account=account)
 
 
-@resourse.route('/<usertype>/account=<account>&user_no=<user_no>/course/resource&cour_no=<cour_number>/', methods=['GET', 'POST'])
+@resourse.route('/<usertype>/account=<account>&user_no=<user_no>/resource&cour_no=<cour_number>/', methods=['GET', 'POST'])
 def course_resource(usertype, account, user_no, cour_number):
     if not is_user(account):
         return error_info()
@@ -30,10 +30,12 @@ def course_resource(usertype, account, user_no, cour_number):
                    'from resource natural join course_resource natural join course natural join userinfo '
                    'where course.cour_number = "%s"' % cour_number)
     resources = cursor.fetchall()
+    print(resources)
     cursor.execute('select cour_name '
                    'from course '
                    'where cour_number = "%s"' % cour_number)
     course = cursor.fetchone()[0]
+    print(course)
     return render_template('/course/course_resource.html',
                            course=course,
                            cour_number=cour_number,
@@ -41,7 +43,7 @@ def course_resource(usertype, account, user_no, cour_number):
                            account=account)
 
 
-@resourse.route('/<usertype>/account=<account>&user_no=<user_no>/course/resource&cour_no=<cour_number>/'
+@resourse.route('/<usertype>/account=<account>&user_no=<user_no>/resource&cour_no=<cour_number>/'
                 'download&res_no=<res_number>/', methods=['GET'])
 def download(usertype, account, user_no, cour_number, res_number):
     if not is_user(account):

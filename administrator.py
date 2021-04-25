@@ -1,5 +1,5 @@
 from db_connect import cursor, conn
-from flask import render_template, request, redirect, flash
+from flask import render_template, request, redirect
 from flask import Blueprint
 from account import is_user, error_info
 from werkzeug.utils import secure_filename
@@ -22,13 +22,14 @@ def is_admin(account):
     print(sql)
     cursor.execute(sql)
     administrator = cursor.fetchone()
-    if not administrator or administrator[0] != 1 and administrator[1] != ip:
+    print(administrator)
+    if not administrator or administrator[0] != 1 or administrator[1] != ip:
         return False
     else:
         return True
 
 
-@admin.route('/index_admin/account=<account>/', methods=['GET'])
+@admin.route('/index_admin/account=<account>/index/', methods=['GET'])
 def index_admin(account):
     if not is_admin(account):
         return error_info_admin()
@@ -42,20 +43,27 @@ def college(account):
     if request.method == 'GET':
         cursor.execute("select * from college")
         colleges = cursor.fetchall()
-        return render_template('/administrator/college.html', colleges=colleges)
+        return render_template('/administrator/college.html', colleges=colleges, account=account)
     else:
         col_number = request.form.get('col_number')
         col_name = request.form.get('col_name')
         submit = request.form.get('confirm')
         if submit == '添加':
+            print("添加")
             cursor.execute('insert into college(col_number, col_name) '
                            'values ("%s", "%s")' %
                            (col_number, col_name))
         elif submit == '更新':
-            cursor.execute('update college '
-                           'set col_name = "%s" '
-                           'where col_number = "%s"' %
-                           (col_name, col_number))
+            sql = 'update college ' \
+                  'set col_name = "%s" ' \
+                  'where col_number = "%s"' \
+                  % (col_name, col_number)
+            print(sql)
+            cursor.execute(sql)
+            # cursor.execute('update college '
+            #                'set col_name = "%s" '
+            #                'where col_number = "%s"' %
+            #                (col_name, col_number))
         conn.commit()
         return redirect('/index_admin/account=%s/college/' % account)
 
@@ -72,7 +80,7 @@ def delete_college(account, id):
     return redirect('/index_admin/account=%s/college/' % account)
 
 
-@admin.route('/index_admin/account=<account>/college/major&college=<col_name>/', methods=['POST', 'GET'])
+@admin.route('/index_admin/account=<account>/major&college=<col_name>/', methods=['POST', 'GET'])
 def major(account, col_name):
     if not is_admin(account):
         return error_info_admin()
@@ -81,7 +89,7 @@ def major(account, col_name):
     if request.method == 'GET':
         cursor.execute('select * from major where col_number = "%s"' % col_number)
         majors = cursor.fetchall()
-        return render_template('/administrator/major.html', col_name=col_name, majors=majors)
+        return render_template('/administrator/major.html', col_name=col_name, majors=majors, account=account)
     else:
         major_number = request.form.get('major_number')
         major_name = request.form.get('major_name')
@@ -96,10 +104,10 @@ def major(account, col_name):
                            'where major_number = "%s"' %
                            (major_name, major_number))
         conn.commit()
-        return redirect('/index_admin/account=%s/college/major&college=%s/' % (account, col_name))
+        return redirect('/index_admin/account=%s/major&college=%s/' % (account, col_name))
 
 
-@admin.route('/index_admin/account=<account>/college/major&college=<col_name>/delete_major/<id>/')
+@admin.route('/index_admin/account=<account>/major&college=<col_name>/delete_major/<id>/')
 def delete_major(account, col_name, id):
     if not is_admin(account):
         return error_info_admin()
@@ -107,7 +115,7 @@ def delete_major(account, col_name, id):
                    'from major '
                    'where major.major_number = %s' % id)
     conn.commit()
-    return redirect('/index_admin/account=%s/college/major&college=%s/' % (account, col_name))
+    return redirect('/index_admin/account=%s/major&college=%s/' % (account, col_name))
 
 
 @admin.route('/index_admin/account=<account>/course/', methods=['POST', 'GET'])
@@ -117,7 +125,7 @@ def course(account):
     if request.method == 'GET':
         cursor.execute("select * from course")
         courses = cursor.fetchall()
-        return render_template('/administrator/course.html', courses=courses)
+        return render_template('/administrator/course.html', courses=courses, account=account)
     else:
         cour_number = request.form.get('cour_number')
         cour_name = request.form.get('cour_name')
@@ -156,7 +164,7 @@ def resource(account):
     print(sql)
     cursor.execute(sql)
     resources = cursor.fetchall()
-    return render_template('/administrator/resource.html', resources=resources)
+    return render_template('/administrator/resource.html', resources=resources, account=account)
 
 
 @admin.route('/index_admin/account=<account>/resource/delete_resource/<id>')
@@ -183,7 +191,7 @@ def add_to_course(account, cour_number, type):
               (cour_number, teac_number)
         cursor.execute(sql)
         conn.commit()
-        return redirect('/index_admin/account=%s/course/')
+        return redirect('/index_admin/account=%s/course/' % account)
     elif type == 'student':
         stu_number = request.form.get('stu_number')
         sql = 'insert into student_course(cour_number, stu_number) ' \
@@ -197,7 +205,7 @@ def add_to_course(account, cour_number, type):
         return '用户类型有误'
 
 
-@admin.route('/<usertype>/account=<account>&user_no=<user_no>/course/resource&cour_no=<cour_number>/add_to_course/', methods=['POST'])
+@admin.route('/<usertype>/account=<account>&user_no=<user_no>/resource&cour_no=<cour_number>/add_to_course/', methods=['POST'])
 def add_resource_to_course(usertype, account, user_no, cour_number):
     if not is_user(account):
         return error_info
@@ -237,6 +245,6 @@ def add_resource_to_course(usertype, account, user_no, cour_number):
     print(sql2)
     cursor.execute(sql2)
     conn.commit()
-    return redirect('/%s/account=%s&user_no=%s/course/resource&cour_no=%s/' % (usertype, account, user_no, cour_number))
+    return redirect('/%s/account=%s&user_no=%s/resource&cour_no=%s/' % (usertype, account, user_no, cour_number))
 
 
