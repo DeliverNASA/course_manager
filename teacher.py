@@ -104,7 +104,7 @@ def course_grade(account, teac_number, cour_number):
             print("stu_grade = " + stu_grade)
             sql2 = 'update student_course ' \
                    'set grade = %d ' \
-                   'where stu_number = "%s"' % (int(stu_grade), student[0])
+                   'where stu_number = "%s" and cour_number = "%s"' % (int(stu_grade), student[0], cour_number)
             cursor.execute(sql2)
         conn.commit()
         return redirect('/index_teacher/account=%s&user_no=%s/grade&cour_no=%s/' %
